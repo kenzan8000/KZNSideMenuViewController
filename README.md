@@ -19,11 +19,20 @@ Simply add the files in the KZNSideMenuViewController directory to your project.
 
 
 ## Example
-
 ```objective-c
     sideMenuViewController.leftViewController = leftViewController;
     sideMenuViewController.rightViewController = rightViewController;
 ```
+```objective-c
+    if ([sideMenuViewController isPresentSideMenuViewController]) {
+        [sideMenuViewController dismissSideMenuViewControllerAnimated:YES];
+    }
+    else {
+        [sideMenuViewController presentSideMenuViewControllerAnimated:YES
+                                                                 side:kKZNSideMenuViewControllerSideLeft];
+    }
+```
+
 
 ## License
 Released under the MIT license.
