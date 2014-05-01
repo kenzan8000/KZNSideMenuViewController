@@ -5,7 +5,7 @@
 /// collision detection width for pan gesture
 static const CGFloat kKZNSideMenuViewControllerPanGestureCollisionDetectionWidth = 80.0f;
 /// initial animation duration
-static const CGFloat kKZNSideMenuViewControllerAnimationDuration = 0.5f;
+static const CGFloat kKZNSideMenuViewControllerAnimationDuration = 0.45f;
 /// initial sidemenu width
 #define kKZNSideMenuViewControllerWidth [[UIScreen mainScreen] bounds].size.width * 0.8f
 /// pan gesture is enable, if pan gesture velocity is bigger than this width
@@ -110,13 +110,16 @@ static const CGFloat kKZNSideMenuViewControllerAnimationDuration = 0.5f;
     }
 
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        // if far from side, pan event cancels
+        // if far from side or no sideMenu viewController, pan event cancels
         UIView *centerView = [self centerView];
         CGPoint gestureLocation = [gestureRecognizer locationInView:centerView];
         CGFloat centerViewWidth = centerView.frame.size.width;
         BOOL fromLeft = (ABS(gestureLocation.x - 0) < kKZNSideMenuViewControllerPanGestureCollisionDetectionWidth);
         BOOL fromRight = (ABS(gestureLocation.x - centerViewWidth) < kKZNSideMenuViewControllerPanGestureCollisionDetectionWidth);
         if (fromLeft == NO && fromRight == NO) { return NO; }
+        if (fromLeft && self.leftViewController == nil) { return NO; }
+        if (fromRight && self.rightViewController == nil) { return NO; }
+
         self.panGestureSide = (fromLeft) ? kKZNSideMenuViewControllerSideLeft : kKZNSideMenuViewControllerSideRight;
     }
 
@@ -213,8 +216,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)presentSideMenuViewControllerAnimated:(BOOL)animated
                                          side:(KZNSideMenuViewControllerSide)side
 {
-    if (side == kKZNSideMenuViewControllerSideLeft && self.leftViewController == nil) { return; }
-    if (side == kKZNSideMenuViewControllerSideRight && self.rightViewController == nil) { return; }
+    UIViewController *appearViewController = nil;
+    if (side == kKZNSideMenuViewControllerSideLeft) { appearViewController = self.leftViewController; }
+    if (side == kKZNSideMenuViewControllerSideRight) { appearViewController = self.rightViewController; }
+    if (appearViewController == nil) { return; }
+
+    // delegate
+    if (self.KZNSideMenuViewControllerDelegate &&
+        [self.KZNSideMenuViewControllerDelegate respondsToSelector:@selector(sideMenuWillAppearViewController:parentViewController:)]) {
+        [self.KZNSideMenuViewControllerDelegate sideMenuWillAppearViewController:appearViewController parentViewController:self];
+    }
 
     // position
     CGPoint offset = [self centerView].frame.origin;
@@ -233,11 +244,28 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         weakSelf.isPresentSideMenuViewController = YES;
         weakSelf.panGestureSide = kKZNSideMenuViewControllerSideNone;
         [weakSelf addGestureRecognizers];
+
+        // delegate
+        if (weakSelf.KZNSideMenuViewControllerDelegate &&
+            [weakSelf.KZNSideMenuViewControllerDelegate respondsToSelector:@selector(sideMenuDidAppearViewController:parentViewController:)]) {
+            [weakSelf.KZNSideMenuViewControllerDelegate sideMenuDidAppearViewController:appearViewController parentViewController:self];
+        }
     }];
 }
 
 - (void)dismissSideMenuViewControllerAnimated:(BOOL)animated
 {
+    CGFloat centerViewOriginX = [self centerView].frame.origin.x;
+    UIViewController *disappearViewController = nil;
+    if (centerViewOriginX > 0) { disappearViewController = self.leftViewController; }
+    if (centerViewOriginX < 0) { disappearViewController = self.rightViewController; }
+
+    // delegate
+    if (self.KZNSideMenuViewControllerDelegate &&
+        [self.KZNSideMenuViewControllerDelegate respondsToSelector:@selector(sideMenuWillDisappearViewController:parentViewController:)]) {
+        [self.KZNSideMenuViewControllerDelegate sideMenuWillDisappearViewController:disappearViewController parentViewController:self];
+    }
+
     // position
     CGPoint offset = [self centerView].frame.origin;
     offset.x = 0;
@@ -250,6 +278,12 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         weakSelf.isPresentSideMenuViewController = NO;
         weakSelf.panGestureSide = kKZNSideMenuViewControllerSideNone;
         [weakSelf addGestureRecognizers];
+
+        // delegate
+        if (weakSelf.KZNSideMenuViewControllerDelegate &&
+            [weakSelf.KZNSideMenuViewControllerDelegate respondsToSelector:@selector(sideMenuDidDisappearViewController:parentViewController:)]) {
+            [weakSelf.KZNSideMenuViewControllerDelegate sideMenuDidDisappearViewController:disappearViewController parentViewController:self];
+        }
     }];
 }
 

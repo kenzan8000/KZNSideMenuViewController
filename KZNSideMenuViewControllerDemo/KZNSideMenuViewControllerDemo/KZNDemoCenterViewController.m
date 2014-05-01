@@ -20,6 +20,7 @@
                                                          bundle:[NSBundle mainBundle]];
     self.leftViewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoLeftViewController"];
     self.rightViewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoRightViewController"];
+    [self setKZNSideMenuViewControllerDelegate:self];
 }
 
 - (void)viewDidLoad
@@ -45,6 +46,48 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+}
+
+
+#pragma mark - KZNSideMenuViewController
+/**
+ * called before SideMenu will appear
+ * @param appearViewController appearing viewController
+ * @param parentViewController parent viewController
+ */
+- (void)sideMenuWillAppearViewController:(UIViewController *)appearViewController
+                    parentViewController:(UIViewController *)parentViewController
+{
+}
+
+/**
+ * called after SideMenu appears
+ * @param appearViewController appearing viewController
+ * @param parentViewController parent viewController
+ */
+- (void)sideMenuDidAppearViewController:(UIViewController *)appearViewController
+                   parentViewController:(UIViewController *)parentViewController
+{
+}
+
+/**
+ * called before SideMenu will disappear
+ * @param disappearViewControllerppearViewController disappearing viewController
+ * @param parentViewController parent viewController
+ */
+- (void)sideMenuWillDisappearViewController:(UIViewController *)disappearViewController
+                       parentViewController:(UIViewController *)parentViewController
+{
+}
+
+/**
+ * called after SideMenu disappears
+ * @param disappearViewController disappearing viewController
+ * @param parentViewController parent viewController
+ */
+- (void)sideMenuDidDisappearViewController:(UIViewController *)disappearViewController
+                      parentViewController:(UIViewController *)parentViewController
+{
 }
 
 

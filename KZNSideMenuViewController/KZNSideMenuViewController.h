@@ -17,10 +17,9 @@ typedef NS_ENUM(NSInteger, KZNSideMenuViewControllerSide) {
  * called before SideMenu will appear
  * @param appearViewController appearing viewController
  * @param parentViewController parent viewController
- * @return Should SideMenu appear? YES or NO
  */
-- (BOOL)sideMenuShouldAppearViewController:(UIViewController *)appearViewController
-                      parentViewController:(UIViewController *)parentViewController;
+- (void)sideMenuWillAppearViewController:(UIViewController *)appearViewController
+                    parentViewController:(UIViewController *)parentViewController;
 
 /**
  * called after SideMenu appears
@@ -34,10 +33,9 @@ typedef NS_ENUM(NSInteger, KZNSideMenuViewControllerSide) {
  * called before SideMenu will disappear
  * @param disappearViewControllerppearViewController disappearing viewController
  * @param parentViewController parent viewController
- * @return Should SideMenu disappear? YES or NO
  */
-- (BOOL)sideMenuShouldDisappearViewController:(UIViewController *)disappearViewController
-                         parentViewController:(UIViewController *)parentViewController;
+- (void)sideMenuWillDisappearViewController:(UIViewController *)disappearViewController
+                       parentViewController:(UIViewController *)parentViewController;
 
 /**
  * called after SideMenu disappears
@@ -62,6 +60,9 @@ typedef NS_ENUM(NSInteger, KZNSideMenuViewControllerSide) {
 @property (nonatomic, strong) UIViewController *leftViewController;
 /// right sidemenu
 @property (nonatomic, strong) UIViewController *rightViewController;
+
+/// delegate
+@property (nonatomic, weak) IBOutlet id<KZNSideMenuViewControllerDelegate> KZNSideMenuViewControllerDelegate;
 
 /// if SideMenu appears or not
 @property (nonatomic, assign) BOOL isPresentSideMenuViewController;

@@ -3,7 +3,7 @@
 
 #pragma mark - KZNDemoCenterViewController
 /// KZNDemoCenterViewController
-@interface KZNDemoCenterViewController : KZNSideMenuViewController {
+@interface KZNDemoCenterViewController : KZNSideMenuViewController<KZNSideMenuViewControllerDelegate> {
 }
 
 
