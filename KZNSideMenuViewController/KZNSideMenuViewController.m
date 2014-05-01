@@ -5,9 +5,11 @@
 /// collision detection width for pan gesture
 static const CGFloat kKZNSideMenuViewControllerPanGestureCollisionDetectionWidth = 80.0f;
 /// initial animation duration
-static const CGFloat kKZNSideMenuViewControllerAnimationDuration = 0.6f;
+static const CGFloat kKZNSideMenuViewControllerAnimationDuration = 0.5f;
 /// initial sidemenu width
 #define kKZNSideMenuViewControllerWidth [[UIScreen mainScreen] bounds].size.width * 0.8f
+/// pan gesture is enable, if pan gesture velocity is bigger than this width
+#define kKZNSideMenuPanGestureIsEnableWidth [[UIScreen mainScreen] bounds].size.width * 0.3f
 
 
 #pragma mark - interface
@@ -163,14 +165,22 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (gestureRecognizer.state == UIGestureRecognizerStateChanged) { return; }
 
     // pad ended
+    BOOL isPresent = YES;
+    CGPoint velocity = [gestureRecognizer velocityInView:centerView];
     if (self.panGestureSide == kKZNSideMenuViewControllerSideLeft) {
-        if (centerViewOriginX < screentWidth / 2) { [self dismissSideMenuViewControllerAnimated:YES]; }
-        else { [self presentSideMenuViewControllerAnimated:YES side:self.panGestureSide]; }
+        if (velocity.x > kKZNSideMenuPanGestureIsEnableWidth) { isPresent = YES; }
+        else if (velocity.x < -kKZNSideMenuPanGestureIsEnableWidth) { isPresent = NO; }
+        else if (centerViewOriginX < screentWidth / 2) { isPresent = NO; }
+        else { isPresent = YES; }
     }
     else if(self.panGestureSide == kKZNSideMenuViewControllerSideRight) {
-        if (centerViewOriginX + screentWidth > screentWidth / 2) { [self dismissSideMenuViewControllerAnimated:YES]; }
-        else { [self presentSideMenuViewControllerAnimated:YES side:self.panGestureSide]; }
+        if (velocity.x > kKZNSideMenuPanGestureIsEnableWidth) { isPresent = NO; }
+        else if (velocity.x < -kKZNSideMenuPanGestureIsEnableWidth) { isPresent = YES; }
+        else if (centerViewOriginX + screentWidth > screentWidth / 2) { isPresent = NO; }
+        else { isPresent = YES; }
     }
+    if (isPresent) { [self presentSideMenuViewControllerAnimated:YES side:self.panGestureSide]; }
+    else { [self dismissSideMenuViewControllerAnimated:YES]; }
 }
 
 - (void)tappedWithTapGestureRecognizer:(UITapGestureRecognizer *)gestureRecognizer
