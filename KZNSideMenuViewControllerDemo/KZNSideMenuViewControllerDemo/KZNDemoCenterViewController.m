@@ -15,6 +15,11 @@
 - (void)loadView
 {
     [super loadView];
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
+                                                         bundle:[NSBundle mainBundle]];
+    self.leftViewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoLeftViewController"];
+    self.rightViewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoRightViewController"];
 }
 
 - (void)viewDidLoad
@@ -50,12 +55,8 @@
         [self dismissSideMenuViewControllerAnimated:YES];
     }
     else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
-                                                             bundle:[NSBundle mainBundle]];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoLeftViewController"];
-        [self presentSideMenuViewController:viewController
-                                   animated:YES
-                                       side:kKZNSideMenuViewControllerSideLeft];
+        [self presentSideMenuViewControllerAnimated:YES
+                                               side:kKZNSideMenuViewControllerSideLeft];
     }
 }
 
@@ -65,12 +66,8 @@
         [self dismissSideMenuViewControllerAnimated:YES];
     }
     else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
-                                                             bundle:[NSBundle mainBundle]];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoRightViewController"];
-        [self presentSideMenuViewController:viewController
-                                   animated:YES
-                                       side:kKZNSideMenuViewControllerSideRight];
+        [self presentSideMenuViewControllerAnimated:YES
+                                               side:kKZNSideMenuViewControllerSideRight];
     }
 
 }

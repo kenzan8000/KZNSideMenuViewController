@@ -1,6 +1,7 @@
 #pragma mark - constant
 /// side of KZNSideMenu
 typedef NS_ENUM(NSInteger, KZNSideMenuViewControllerSide) {
+    kKZNSideMenuViewControllerSideNone,
     kKZNSideMenuViewControllerSideLeft,
     kKZNSideMenuViewControllerSideRight,
 };
@@ -57,6 +58,13 @@ typedef NS_ENUM(NSInteger, KZNSideMenuViewControllerSide) {
 
 
 #pragma mark - properties
+/// left sidemenu
+@property (nonatomic, strong) UIViewController *leftViewController;
+/// right sidemenu
+@property (nonatomic, strong) UIViewController *rightViewController;
+
+/// if SideMenu appears or not
+@property (nonatomic, assign) BOOL isPresentSideMenuViewController;
 /// animation duration
 @property (nonatomic, assign) CGFloat animationDurationOfKZNSlideMenu;
 /// SideMenu width
@@ -65,20 +73,12 @@ typedef NS_ENUM(NSInteger, KZNSideMenuViewControllerSide) {
 
 #pragma mark - api
 /**
- * if SideMenu appears or not
- * @return YES or NO
- */
-- (BOOL)isPresentSideMenuViewController;
-
-/**
  * present SideMenu
- * @param viewController viewController
  * @param animated YES or NO
  * @param side side of KZNSideMenu
  */
-- (void)presentSideMenuViewController:(UIViewController *)viewController
-                             animated:(BOOL)animated
-                                 side:(KZNSideMenuViewControllerSide)side;
+- (void)presentSideMenuViewControllerAnimated:(BOOL)animated
+                                         side:(KZNSideMenuViewControllerSide)side;
 
 /**
  * dismiss SideMenu
