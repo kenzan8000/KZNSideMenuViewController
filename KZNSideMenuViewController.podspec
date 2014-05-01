@@ -6,7 +6,6 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                    A longer description of KZNSideMenuViewController in Markdown format.
 
-                   * hoge
                    * KZNSideMenuViewController is tested on iOS 5.0+ and requires ARC.
                    DESC
   s.homepage     = "http://kenzan8000.org"

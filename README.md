@@ -3,6 +3,7 @@
 
 
 ## Feature
+![Screenshot](https://raw2.github.com/kenzan8000/KZNSideMenuViewController/master/Screenshot/Screenshot.gif "Screenshot")
 
 
 ## Installation
@@ -20,6 +21,8 @@ Simply add the files in the KZNSideMenuViewController directory to your project.
 ## Example
 
 ```objective-c
+    sideMenuViewController.leftViewController = leftViewController;
+    sideMenuViewController.rightViewController = rightViewController;
 ```
 
 ## License
