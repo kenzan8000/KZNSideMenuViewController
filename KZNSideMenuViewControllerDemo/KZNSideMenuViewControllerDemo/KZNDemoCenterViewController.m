@@ -9,6 +9,10 @@
 
 
 #pragma mark - release
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 #pragma mark - lifecycle
@@ -16,11 +20,12 @@
 {
     [super loadView];
 
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
-                                                         bundle:[NSBundle mainBundle]];
-    self.leftViewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoLeftViewController"];
-    self.rightViewController = [storyboard instantiateViewControllerWithIdentifier:@"KZNDemoRightViewController"];
-    [self setKZNSideMenuViewControllerDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(leftViewControllerCellDidSelectedWithNotification:)
+                                                 name:@"KZNDemoLeftViewControllerCellDidSelected"
+                                               object:nil];
+
+    [[self sideMenuViewController] setKZNSideMenuViewControllerDelegate:self];
 }
 
 - (void)viewDidLoad
@@ -91,6 +96,45 @@
 }
 
 
+#pragma mark - UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+{
+    return 16;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *tableViewCellIdentifier = @"UITableViewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableViewCellIdentifier];
+    if (!cell) {
+        cell = [UITableViewCell new];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", @(indexPath.row)];
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath
+                                  animated:YES];
+}
+
+
 #pragma mark - event listener
 - (IBAction)touchedUpInsideWithLeftBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
@@ -112,8 +156,17 @@
         [self presentSideMenuViewControllerAnimated:YES
                                                side:kKZNSideMenuViewControllerSideRight];
     }
-
 }
 
+
+#pragma mark - notification
+- (void)leftViewControllerCellDidSelectedWithNotification:(NSNotification *)notification
+{
+    if (notification.userInfo == nil) { return; }
+    if ([[notification.userInfo allKeys] containsObject:@"title"]) {
+        self.title = [NSString stringWithFormat:@"%@", notification.userInfo[@"title"]];
+        [self dismissSideMenuViewControllerAnimated:YES];
+    }
+}
 
 @end

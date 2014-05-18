@@ -20,16 +20,17 @@ Simply add the files in the KZNSideMenuViewController directory to your project.
 
 ## Example
 ```objective-c
+    sideMenuViewController.centerViewController = centerViewController;
     sideMenuViewController.leftViewController = leftViewController;
     sideMenuViewController.rightViewController = rightViewController;
 ```
 ```objective-c
-    if ([sideMenuViewController isPresentSideMenuViewController]) {
-        [sideMenuViewController dismissSideMenuViewControllerAnimated:YES];
+    if ([centerViewController isPresentSideMenuViewController]) {
+        [centerViewController dismissSideMenuViewControllerAnimated:YES];
     }
     else {
-        [sideMenuViewController presentSideMenuViewControllerAnimated:YES
-                                                                 side:kKZNSideMenuViewControllerSideLeft];
+        [centerViewController presentSideMenuViewControllerAnimated:YES
+                                                               side:kKZNSideMenuViewControllerSideLeft];
     }
 ```
 

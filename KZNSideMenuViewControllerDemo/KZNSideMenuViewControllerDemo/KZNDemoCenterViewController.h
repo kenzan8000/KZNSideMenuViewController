@@ -3,8 +3,13 @@
 
 #pragma mark - KZNDemoCenterViewController
 /// KZNDemoCenterViewController
-@interface KZNDemoCenterViewController : KZNSideMenuViewController<KZNSideMenuViewControllerDelegate> {
+@interface KZNDemoCenterViewController : UIViewController<
+    KZNSideMenuViewControllerDelegate,
+    UITableViewDelegate,
+    UITableViewDataSource
+> {
 }
 
 
 @end
+

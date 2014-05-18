@@ -22,6 +22,7 @@
 		E66F11DC190CEB7D00AD56BC /* KZNSideMenuViewControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E66F11DB190CEB7D00AD56BC /* KZNSideMenuViewControllerDemoTests.m */; };
 		E66F11ED190D278C00AD56BC /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66F11EC190D278C00AD56BC /* MainStoryboard.storyboard */; };
 		E66F11F1190D338C00AD56BC /* KZNDemoCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66F11F0190D338C00AD56BC /* KZNDemoCenterViewController.m */; };
+		E66FBD211927A7F000556DA6 /* KZNDemoLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66FBD201927A7F000556DA6 /* KZNDemoLeftViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		E66F11EE190D290000AD56BC /* KZNSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZNSideMenuViewController.h; sourceTree = "<group>"; };
 		E66F11EF190D338C00AD56BC /* KZNDemoCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZNDemoCenterViewController.h; sourceTree = "<group>"; };
 		E66F11F0190D338C00AD56BC /* KZNDemoCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZNDemoCenterViewController.m; sourceTree = "<group>"; };
+		E66FBD1F1927A7F000556DA6 /* KZNDemoLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KZNDemoLeftViewController.h; sourceTree = "<group>"; };
+		E66FBD201927A7F000556DA6 /* KZNDemoLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZNDemoLeftViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				E66F11EC190D278C00AD56BC /* MainStoryboard.storyboard */,
 				E66F11EF190D338C00AD56BC /* KZNDemoCenterViewController.h */,
 				E66F11F0190D338C00AD56BC /* KZNDemoCenterViewController.m */,
+				E66FBD1F1927A7F000556DA6 /* KZNDemoLeftViewController.h */,
+				E66FBD201927A7F000556DA6 /* KZNDemoLeftViewController.m */,
 				E66F11C5190CEB7D00AD56BC /* AppDelegate.h */,
 				E66F11C6190CEB7D00AD56BC /* AppDelegate.m */,
 				E66F11C8190CEB7D00AD56BC /* Images.xcassets */,
@@ -264,6 +269,7 @@
 			files = (
 				E66F11C7190CEB7D00AD56BC /* AppDelegate.m in Sources */,
 				E66F11F1190D338C00AD56BC /* KZNDemoCenterViewController.m in Sources */,
+				E66FBD211927A7F000556DA6 /* KZNDemoLeftViewController.m in Sources */,
 				E648160A190D3CBC00EC50AB /* KZNSideMenuViewController.m in Sources */,
 				E66F11C3190CEB7D00AD56BC /* main.m in Sources */,
 			);
